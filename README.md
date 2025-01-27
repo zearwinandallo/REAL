@@ -47,5 +47,5 @@ export interface DatabaseSnapshotDoesNotExist<T> extends firebase.database.DataS
 
 DEPLOYMENT:
 npm install -g angular-cli-ghpages
-ng build --output-path=dist  --base-href=/1-T-BSPELM/
-npx angular-cli-ghpages --dir=dist/browser
+ng build --output-path=dist  --base-href=/REAL/
+npx angular-cli-ghpages --dir=dist/browser --repo=https://github.com/christianjaydifuntorum/REAL.git

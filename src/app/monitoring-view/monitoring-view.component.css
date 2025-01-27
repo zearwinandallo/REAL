@@ -1,0 +1,132 @@
+/* Ensure all buttons are small with 50% width */
+button, .btn {
+  padding: 0.4rem 1rem; /* Small padding */
+  font-size: 0.875rem;   /* Smaller font size */
+  width: 50%;            /* Make buttons 50% width */
+}
+
+/* Filters Section */
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 50px;
+}
+
+.filter-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap; /* Ensures elements wrap on smaller screens */
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.filters label {
+  margin-bottom: 0.25rem;
+  /* Space between label and input */
+}
+
+.button-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 10px;
+}
+
+button.small {
+  font-size: 0.875rem;
+  /* Smaller font size */
+  padding: 0.4rem 1rem;
+  /* Smaller padding */
+}
+
+button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+}
+
+/* Table Container - Make it horizontally scrollable */
+.table-container {
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: auto;  /* Allow horizontal scrolling */
+  margin-top: 15px;
+  width: 100%;        /* Ensure container uses full width */
+  display: block;     /* Make it behave as a block element for scrolling */
+}
+
+/* Make sure the table itself behaves responsively */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto; /* Auto layout so the table can adjust to content */
+}
+
+/* Add some responsiveness for table cells */
+table th, table td {
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.green {
+  color: rgb(87, 168, 87);
+}
+
+.yellow {
+  color: gold;
+}
+
+.red {
+  color: red;
+}
+
+/* Media Queries for responsive design */
+@media (max-width: 768px) {
+  .col-md-6 {
+    width: 100%;
+  }
+
+  .filter-row {
+    flex-direction: column;
+  }
+
+  .button-row {
+    flex-direction: column;
+  }
+
+  .wider-dropdown {
+    width: 100%;
+  }
+
+  /* Adjust table container on smaller devices */
+  .table-container {
+    max-height: 350px; /* Reduce table height */
+  }
+}
+
+@media (max-width: 576px) {
+  /* Ensure buttons are 50% width */
+  button {
+    width: 50%;
+  }
+
+  /* Allow horizontal scrolling for the table on small screens */
+  .table-container {
+    max-height: 350px;
+    overflow-x: auto;  /* Horizontal scroll */
+    overflow-y: visible;
+    width: 100%;  /* Ensure table container uses full width */
+  }
+
+  table {
+    min-width: 600px;  /* Set a minimum width for the table to force scrolling */
+  }
+}

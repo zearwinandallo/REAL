@@ -1,0 +1,166 @@
+<div class="container mt-4">
+	<!-- Title Header -->
+	<div class="row mb-4">
+		<div class="col-12">
+			<h3 class="text-center">REMOTE ELECTRICAL ANALYZER AND LOGGER</h3>
+		</div>
+	</div>
+
+	<div class="row">
+		<!-- First Table -->
+		<div class="col-12 col-md-6">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th colspan="2" class="text-center">Electrical Measurements</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Date</td>
+						<td>{{ monitoringView.current_date }}</td>
+					</tr>
+					<tr>
+						<td>Time</td>
+						<td>{{ monitoringView.current_time }}</td>
+					</tr>
+					<tr>
+						<td>Voltage</td>
+						<td [ngClass]="getVoltageClass(monitoringView.voltage_V)">{{ monitoringView.voltage_V }} V</td>
+					</tr>
+					<tr>
+						<td>Current</td>
+						<td>{{ monitoringView.current_A }} A</td>
+					</tr>
+					<tr>
+						<td>Frequency</td>
+						<td>{{ monitoringView.frequency_Hz }} Hz</td>
+					</tr>
+					<tr>
+						<td>Active Power</td>
+						<td>{{ monitoringView.active_power_W }} KW</td>
+					</tr>
+					<tr>
+						<td>Power Factor</td>
+						<td [ngClass]="getPowerFactorClass(monitoringView.power_factor)">{{ monitoringView.power_factor }}</td>
+					</tr>
+					<tr>
+						<td>Phase Angle</td>
+						<td>{{ monitoringView.phase_angle_deg }} °</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- Second Table -->
+		<div class="col-12 col-md-6">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th colspan="2" class="text-center">Cost Calculation</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Energy Used</td>
+						<td>
+							<select class="wider-dropdown" [(ngModel)]="selectedEnergy" (change)="updateEnergy()">
+								<option *ngFor="let data of filteredMonitoringViewList" [value]="data.energy_kWh">
+									{{ data.energy_kWh }} kWh
+								</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>Input Cost kWh</td>
+						<td>
+							<div class="input-group">
+								<input type="number" class="form-control" placeholder="Unit Value kWh"
+									[(ngModel)]="inputCost" name="inputCost">
+								<button class="btn btn-sm btn-primary" (click)="calculate()">Send</button>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>Cost 1 kWh</td>
+						<td>
+							<input type="text" class="form-control" value="1 kWh = ₱{{ inputCost }}" readonly disabled>
+						</td>
+					</tr>
+					<tr>
+						<td>Consumption in PHP = kWh</td>
+						<td>
+							<div class="d-flex justify-content-between align-items-center">
+								<span>{{ consumptionKwh }}</span>
+								<button class="btn btn-sm btn-secondary" (click)="resetConsumption()">Reset</button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<!-- Filters -->
+	<div class="filters mt-4">
+		<!-- First Row: Date Filters -->
+		<div class="filter-row">
+			<div class="filter-item">
+				<label for="startDate">Start Date:</label>
+				<input type="date" id="startDate" [(ngModel)]="startDate" (change)="applyFilters()" />
+			</div>
+			<div class="filter-item">
+				<label for="endDate">End Date:</label>
+				<input type="date" id="endDate" [(ngModel)]="endDate" (change)="applyFilters()" />
+			</div>
+		</div>
+
+		<!-- Second Row: Time Filters -->
+		<div class="filter-row">
+			<div class="filter-item">
+				<label for="startTime">Start Time:</label>
+				<input type="time" id="startTime" [(ngModel)]="startTime" (change)="applyFilters()" />
+			</div>
+			<div class="filter-item">
+				<label for="endTime">End Time:</label>
+				<input type="time" id="endTime" [(ngModel)]="endTime" (change)="applyFilters()" />
+			</div>
+		</div>
+
+		<!-- Button Row -->
+		<div class="button-row">
+			<button class="btn btn-primary small" (click)="applyFilters()">Refresh</button>
+			<button class="btn btn-secondary small" (click)="clearFilters()">Clear</button>
+		</div>
+	</div>
+
+	<!-- Table -->
+	<div class="table-container mt-3">
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>DateTime</th>
+					<th>Voltage (V)</th>
+					<th>Current (A)</th>
+					<th>Power Factor</th>
+					<th>Frequency (Hz)</th>
+					<th>Phase Angle (°)</th>
+					<th>Active Power (W)</th>
+					<th>Energy (kWh)</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let data of filteredMonitoringViewList">
+					<td>{{ data.current_date + ' ' + data.current_time }}</td>
+					<td [ngClass]="getVoltageClass(data.voltage_V)">{{ data.voltage_V }} V</td>
+					<td>{{ data.current_A }} A</td>
+					<td [ngClass]="getPowerFactorClass(data.power_factor)">{{ data.power_factor }}</td>
+					<td>{{ data.frequency_Hz }} Hz</td>
+					<td>{{ data.phase_angle_deg }}°</td>
+					<td>{{ data.active_power_W }} W</td>
+					<td>{{ data.energy_kWh }} kWh</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
